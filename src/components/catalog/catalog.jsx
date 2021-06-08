@@ -1,25 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withCatalog from '../hocs/with-catalog';
-import {Repeat} from '../utils';
-import AddToCartPopup from './add-to-cart-popup';
-import ChangeCartPopup from './change-cart-popup';
-import {NUMBER_OF_ITEMS_TO_PAGE} from '../const';
+import withCatalog from '../../hocs/with-catalog/with-catalog';
+import {Repeat} from '../../utils';
+import AddToCartPopup from '../add-to-cart-popup/add-to-cart-popup';
+import ChangeCartPopup from '../change-cart-popup/change-cart-popup';
+import {NUMBER_OF_ITEMS_TO_PAGE, SortDirectionType, SortType} from '../../const';
+import Breadcrumbs from '../breadcrumbs/breadcrumbs';
+import Pagination from '../pagination/pagination';
 
 const Catalog = ({state, guitars, onInputChange, onChangePage, onMinPriceChange, onMaxPriceChange, onTypeChange, onNumbersOfStringsChange, onSortTypeChange, onSortDirectionChange, onBuyButtonClick, onAddToCart, onPopupClosure}) => {
-  const {page, numberOfpages, filter, sort, availableStrings, popupOpened, selectedGuitar} = state;
+  const {page, filter, sort, availableStrings, popupOpened, selectedGuitar} = state;
   const {minPrice, maxPrice} = filter;
   return (
     <section className="catalog container">
       <h1 className="catalog__title">Каталог гитар</h1>
-      <ul className="catalog__breadcrumbs breadcrumbs">
-        <li className="breadcrumbs__item">
-          <a href="#top" className="breadcrumbs__link">Главная</a>
-        </li>
-        <li className="breadcrumbs__item">
-          <a className="breadcrumbs__link">Каталог</a>
-        </li>
-      </ul>
+      <Breadcrumbs additionalClass="catalog__breadcrumbs" pathChain={[{name: `Главная`, link: `#`}, {name: `Каталог`}]}/>
       <div className="catalog__flex-container">
         <form action="#" className="catalog__filter">
           <h2 className="catalog__filter-title">Фильтр</h2>
@@ -100,7 +95,7 @@ const Catalog = ({state, guitars, onInputChange, onChangePage, onMinPriceChange,
                   type="radio"
                   name="type"
                   className="visually-hidden"
-                  value="price"
+                  value={SortType.PRICE}
                   onChange={onSortTypeChange}
                 />
                 <label htmlFor="sort-price">по цене</label>
@@ -111,7 +106,7 @@ const Catalog = ({state, guitars, onInputChange, onChangePage, onMinPriceChange,
                   type="radio"
                   name="type"
                   className="visually-hidden"
-                  value="numberOfReviews"
+                  value={SortType.NUMBER_OF_REVIEWS}
                   onChange={onSortTypeChange}
                 />
                 <label htmlFor="sort-popular">по популярности</label>
@@ -122,10 +117,10 @@ const Catalog = ({state, guitars, onInputChange, onChangePage, onMinPriceChange,
                 id="sort-ascending"
                 type="radio"
                 name="direction"
-                value="ascending"
+                value={SortDirectionType.ASCENDING}
                 className="catalog__sorting-direction-input visually-hidden"
                 onChange={onSortDirectionChange}
-                disabled={sort.direction === `ascending` ? `disabled` : ``}
+                disabled={sort.direction === SortDirectionType.ASCENDING ? `disabled` : ``}
               />
               <label htmlFor="sort-ascending" className="catalog__sorting-direction-item catalog__sorting-direction-item--ascending">
                 <span className="visually-hidden">По возрастанию</span>
@@ -135,10 +130,10 @@ const Catalog = ({state, guitars, onInputChange, onChangePage, onMinPriceChange,
                 id="sort-descending"
                 type="radio"
                 name="direction"
-                value="descending"
+                value={SortDirectionType.DESCENDING}
                 className="catalog__sorting-direction-input visually-hidden"
                 onChange={onSortDirectionChange}
-                disabled={sort.direction === `descending` ? `disabled` : ``}
+                disabled={sort.direction === SortDirectionType.DESCENDING ? `disabled` : ``}
               />
               <label htmlFor="sort-descending" className="catalog__sorting-direction-item catalog__sorting-direction-item--descending">
                 <span className="visually-hidden">По убыванию</span>
@@ -149,7 +144,7 @@ const Catalog = ({state, guitars, onInputChange, onChangePage, onMinPriceChange,
             <Repeat numTimes={guitars.slice((page - 1) * NUMBER_OF_ITEMS_TO_PAGE, (page * NUMBER_OF_ITEMS_TO_PAGE)).length}>
               {(i) => (
                 <li className="catalog__item" key={i}>
-                  <img src={guitars[(page - 1) * NUMBER_OF_ITEMS_TO_PAGE + i].photo} alt="Гитара" className="catalog__item-photo" />
+                  <img src={`./img/${guitars[(page - 1) * NUMBER_OF_ITEMS_TO_PAGE + i].photo}.jpg`} alt="Гитара" className="catalog__item-photo" />
                   <div className="catalog__reviews-block">
                     <Repeat numTimes={5}>
                       {(j) => (
@@ -172,61 +167,11 @@ const Catalog = ({state, guitars, onInputChange, onChangePage, onMinPriceChange,
               )}
             </Repeat>
           </ul>
-          <ul className="catalog__pagination">
-            {page > 1 && (
-              <li className="catalog__pagination-item">
-                <a onClick={onChangePage} name={page - 1} href="#top" className="catalog__pagination-link catalog__pagination-link--more">Назад</a>
-              </li>
-            )}
-            {page > 3 && (
-              <>
-                <li className="catalog__pagination-item">
-                  <a onClick={onChangePage} name={1} href="#top" className="catalog__pagination-link">1</a>
-                </li>
-                <li className="catalog__pagination-item">
-                  <a className="catalog__pagination-link">...</a>
-                </li>
-              </>
-            )}
-            {page === 3 && (
-              <li className="catalog__pagination-item">
-                <a onClick={onChangePage} name={page - 2} href="#top" className="catalog__pagination-link">{page - 2}</a>
-              </li>
-            )}
-            {page > 1 && (
-              <li className="catalog__pagination-item">
-                <a onClick={onChangePage} name={page - 1} href="#top" className="catalog__pagination-link">{page - 1}</a>
-              </li>
-            )}
-            <li className="catalog__pagination-item">
-              <a className="catalog__pagination-link catalog__pagination-link--active">{page}</a>
-            </li>
-            {page < numberOfpages && (
-              <li className="catalog__pagination-item">
-                <a onClick={onChangePage} name={page + 1} href="#top" className="catalog__pagination-link">{page + 1}</a>
-              </li>
-            )}
-            {page === numberOfpages - 2 && (
-              <li className="catalog__pagination-item">
-                <a onClick={onChangePage} name={page + 2} href="#top" className="catalog__pagination-link">{page + 2}</a>
-              </li>
-            )}
-            {page < numberOfpages - 2 && (
-              <>
-                <li className="catalog__pagination-item">
-                  <a className="catalog__pagination-link">...</a>
-                </li>
-                <li className="catalog__pagination-item">
-                  <a onClick={onChangePage} name={numberOfpages} href="#top" className="catalog__pagination-link">{numberOfpages}</a>
-                </li>
-              </>
-            )}
-            {page < numberOfpages && (
-              <li className="catalog__pagination-item">
-                <a onClick={onChangePage} name={page + 1} href="#top" className="catalog__pagination-link catalog__pagination-link--more">Далее</a>
-              </li>
-            )}
-          </ul>
+          <Pagination
+            page={page}
+            numberOfPages={Math.ceil(guitars.length / NUMBER_OF_ITEMS_TO_PAGE)}
+            onChangePage={onChangePage}
+          />
         </div>
       </div>
       {popupOpened === `confirm` && (
@@ -242,7 +187,6 @@ const Catalog = ({state, guitars, onInputChange, onChangePage, onMinPriceChange,
 Catalog.propTypes = {
   state: PropTypes.shape({
     page: PropTypes.number.isRequired,
-    numberOfpages: PropTypes.number.isRequired,
     sort: PropTypes.shape({
       type: PropTypes.string.isRequired,
       direction: PropTypes.string.isRequired,

@@ -1,10 +1,4 @@
-import electro from './img/electro.jpg';
-import electro2 from './img/electro-2.jpg';
-import electro3 from './img/electro-3.jpg';
-import acoustic from './img/acoustic.jpg';
-import ukulele from './img/ukulele.jpg';
-
-const QUANTITY_GUITARS = 60;
+const QUANTITY_GUITARS = 100;
 
 export const promocodesMock = {
   GITARAHIT: {
@@ -40,7 +34,7 @@ const guitarsMock = [
     type: `electro`,
     numberOfStrings: 4,
     vendorCode: `SO757575`,
-    photo: electro,
+    photo: `electro`,
     price: 17500,
     rating: 2,
     numberOfReviews: 15,
@@ -50,7 +44,7 @@ const guitarsMock = [
     type: `electro`,
     numberOfStrings: 6,
     vendorCode: `SO757511`,
-    photo: electro2,
+    photo: `electro-2`,
     price: 30000,
     rating: 4,
     numberOfReviews: 22,
@@ -60,7 +54,7 @@ const guitarsMock = [
     type: `electro`,
     numberOfStrings: 7,
     vendorCode: `SO757512`,
-    photo: electro3,
+    photo: `electro-3`,
     price: 28000,
     rating: 5,
     numberOfReviews: 17,
@@ -70,7 +64,7 @@ const guitarsMock = [
     type: `acoustic`,
     numberOfStrings: 6,
     vendorCode: `AO757599`,
-    photo: acoustic,
+    photo: `acoustic`,
     price: 8000,
     rating: 3,
     numberOfReviews: 10,
@@ -80,7 +74,7 @@ const guitarsMock = [
     type: `acoustic`,
     numberOfStrings: 7,
     vendorCode: `AO757598`,
-    photo: acoustic,
+    photo: `acoustic`,
     price: 4000,
     rating: 1,
     numberOfReviews: 38,
@@ -90,7 +84,7 @@ const guitarsMock = [
     type: `acoustic`,
     numberOfStrings: 12,
     vendorCode: `AO757597`,
-    photo: acoustic,
+    photo: `acoustic`,
     price: 16000,
     rating: 5,
     numberOfReviews: 3,
@@ -100,7 +94,7 @@ const guitarsMock = [
     type: `ukulele`,
     numberOfStrings: 4,
     vendorCode: `AA757590`,
-    photo: ukulele,
+    photo: `ukulele`,
     price: 6800,
     rating: 4,
     numberOfReviews: 5,

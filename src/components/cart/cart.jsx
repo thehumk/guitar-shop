@@ -1,27 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
-import withCart from '../hocs/with-cart';
-import { typeOfGuitars } from '../mocks';
-import {Repeat} from '../utils';
-import ChangeCartPopup from './change-cart-popup';
+import withCart from '../../hocs/with-cart/with-cart';
+import { typeOfGuitars } from '../../mocks';
+import {Repeat} from '../../utils';
+import ChangeCartPopup from '../change-cart-popup/change-cart-popup';
+import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 
 const Cart = ({cart, quantityGuitarsFromCart, removeFromCart, popupOpened, selectedGuitar, totalPrice, onPopupOpening, onPopupClosure, changeQuantityGuitars, onApplyPromocode}) => {
-  console.log(quantityGuitarsFromCart)
   return (
     <section className="cart container">
       <h1 className="cart__title">Корзина</h1>
-      <ul className="cart__breadcrumbs breadcrumbs">
-        <li className="breadcrumbs__item">
-          <a href="#top" className="breadcrumbs__link">Главная</a>
-        </li>
-        <li className="breadcrumbs__item">
-          <Link to="/catalog" className="breadcrumbs__link">Каталог</Link>
-        </li>
-        <li className="breadcrumbs__item">
-          <a className="breadcrumbs__link">Оформляем</a>
-        </li>
-      </ul>
+      <Breadcrumbs additionalClass="cart__breadcrumbs" pathChain={[{name: `Главная`, link: `#`}, {name: `Каталог`, link: `/catalog`}, {name: `Оформляем`}]}/>
       <ul className="cart__list">
         <Repeat numTimes={cart.length}>
           {(i) => (
@@ -31,7 +20,7 @@ const Cart = ({cart, quantityGuitarsFromCart, removeFromCart, popupOpened, selec
               }}>
                 <span className="visually-hidden">Удалить товар</span>
               </button>
-              <img src={cart[i].photo} alt="Гитара" className="cart__item-photo" />
+              <img src={`./img/${cart[i].photo}.jpg`} alt="Гитара" className="cart__item-photo" />
               <div className="cart__item-info">
                 <h3 className="cart__item-title">{typeOfGuitars[cart[i].type]} {cart[i].name}</h3>
                 <p className="cart__vendor-code">Артикул: {cart[i].vendorCode}</p>

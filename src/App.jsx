@@ -1,9 +1,9 @@
 import React from 'react';
 import {Switch, BrowserRouter, Route, Redirect} from 'react-router-dom';
-import Header from './components/header';
-import Footer from './components/footer';
-import Catalog from './components/catalog';
-import Cart from './components/cart';
+import Header from './components/header/header';
+import Footer from './components/footer/footer';
+import Catalog from './components/catalog/catalog';
+import Cart from './components/cart/cart';
 
 const App = () => {
   return (

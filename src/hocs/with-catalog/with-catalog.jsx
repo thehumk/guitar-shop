@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {typeOfStrings} from '../mocks';
-import {ActionCreator} from '../store/actions/actions';
-import {NUMBER_OF_ITEMS_TO_PAGE} from '../const';
+import {typeOfStrings} from '../../mocks';
+import {ActionCreator} from '../../store/actions/actions';
+import {NUMBER_OF_ITEMS_TO_PAGE, KeyCode, SortDirectionType, SortType} from '../../const';
 
 const withCatalog = (Component) => {
   class WithCatalog extends React.PureComponent {
@@ -12,7 +12,6 @@ const withCatalog = (Component) => {
 
       this.state = {
         page: 1,
-        numberOfpages: Math.ceil(this.props.filteredGuitars.length / NUMBER_OF_ITEMS_TO_PAGE),
         sort: {
           type: ``,
           direction: ``,
@@ -49,6 +48,7 @@ const withCatalog = (Component) => {
     }
 
     onChangePage(evt) {
+      evt.preventDefault();
       this.setState({page: Number(evt.target.name)});
     }
 
@@ -158,7 +158,6 @@ const withCatalog = (Component) => {
       this.props.filteringGuitars(filteredGuitars);
       this.setState({
         page: 1,
-        numberOfpages: Math.ceil(filteredGuitars.length / NUMBER_OF_ITEMS_TO_PAGE),
       });
     }
 
@@ -166,7 +165,7 @@ const withCatalog = (Component) => {
       this.setState({sort: Object.assign(
         {}, this.state.sort, {
           type: evt.target.value,
-          direction: this.state.sort.direction === `` ? `ascending` : this.state.sort.direction,
+          direction: this.state.sort.direction === `` ? SortDirectionType.ASCENDING : this.state.sort.direction,
         }
       )}, this.sortingGuitars);
     }
@@ -174,7 +173,7 @@ const withCatalog = (Component) => {
     onSortDirectionChange(evt) {
       this.setState({sort: Object.assign(
         {}, this.state.sort, {
-          type: this.state.sort.type === `` ? `price` : this.state.sort.type,
+          type: this.state.sort.type === `` ? SortType.PRICE : this.state.sort.type,
           direction: evt.target.value,
         }
       )}, this.sortingGuitars);
@@ -193,7 +192,7 @@ const withCatalog = (Component) => {
         return 0;
       }).slice();
 
-      direction === `descending` ? sortGuitars = sortGuitars.reverse() : sortGuitars = sortGuitars;
+      direction === SortDirectionType.DESCENDING ? sortGuitars = sortGuitars.reverse() : sortGuitars = sortGuitars;
 
       this.props.filteringGuitars(sortGuitars);
     }
@@ -218,7 +217,7 @@ const withCatalog = (Component) => {
     }
 
     popupCloseKeydown(evt) {
-      if (evt.keyCode === 27) {
+      if (evt.keyCode === KeyCode.ESC) {
         this.onPopupClosure();
       }
     }
@@ -265,7 +264,6 @@ const withCatalog = (Component) => {
       PropTypes.shape({
         name: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,
-        numberOfStrings: PropTypes.number.isRequired,
         vendorCode: PropTypes.string.isRequired,
         photo: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,

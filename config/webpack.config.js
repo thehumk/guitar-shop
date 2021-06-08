@@ -385,7 +385,7 @@ module.exports = function (webpackEnv) {
               test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
               loader: require.resolve('url-loader'),
               options: {
-                limit: imageInlineSizeLimit,
+                limit: 0,
                 name: 'static/media/[name].[ext]',
               },
             },

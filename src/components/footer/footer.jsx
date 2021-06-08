@@ -1,12 +1,11 @@
 import React from 'react';
-import logo from '../img/logo-footer.svg';
 
 const Footer = () => {
   return (
     <footer className="footer app__footer">
       <div className="footer__container container">
         <a href="#top" className="footer__logo">
-          <img src={logo} alt="Guitar shop" />
+          <img src="./img/logo-footer.svg" alt="Guitar shop" />
         </a>
         <ul className="footer__social">
           <li className="footer__social-item">

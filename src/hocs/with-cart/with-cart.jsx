@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../store/actions/actions';
-import {promocodesMock} from '../mocks';
+import {ActionCreator} from '../../store/actions/actions';
+import {promocodesMock} from '../../mocks';
+import {KeyCode} from '../../const';
 
 const withCart = (Component) => {
   class WithCart extends React.PureComponent {
@@ -37,7 +38,7 @@ const withCart = (Component) => {
     }
 
     popupCloseKeydown(evt) {
-      if (evt.keyCode === 27) {
+      if (evt.keyCode === KeyCode.ESC) {
         this.onPopupClosure();
       }
     }

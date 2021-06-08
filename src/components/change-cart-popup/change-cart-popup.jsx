@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {typeOfGuitars} from '../mocks';
-import {ActionCreator} from '../store/actions/actions';
+import {typeOfGuitars} from '../../mocks';
+import {ActionCreator} from '../../store/actions/actions';
 
 const ChangeCartPopup = ({actionType, guitar, onAddToCart, onPopupClosure, addToCart, removeFromCart}) => {
   const {photo, name, vendorCode, type, numberOfStrings, price} = guitar;
@@ -16,7 +16,7 @@ const ChangeCartPopup = ({actionType, guitar, onAddToCart, onPopupClosure, addTo
           {actionType === `remove` && (`Удалить этот товар? `)}
         </h2>
         <div className="change-cart__content-container">
-          <img src={photo} alt="Гитара" className="change-cart__item-photo" />
+          <img src={`./img/${photo}.jpg`} alt="Гитара" className="change-cart__item-photo" />
           <div className="change-cart__item-info">
             <h3 className="change-cart__item-title">Гитара {name}</h3>
             <p className="change-cart__vendor-code">Артикул: {vendorCode}</p>

@@ -2,14 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import logo from '../img/logo.svg';
 
 const Header = ({cart}) => {
   return (
     <header className="header app__header">
       <div className="header__container container">
         <a href="#top" className="header__logo">
-          <img src={logo} alt="Guitar shop"/>
+          <img src="./img/logo.svg" alt="Guitar shop"/>
         </a>
         <nav className="header__nav">
           <ul className="header__nav-list">
