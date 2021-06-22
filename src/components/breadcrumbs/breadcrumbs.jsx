@@ -9,7 +9,12 @@ const Breadcrumbs = ({pathChain, additionalClass}) => {
       <Repeat numTimes={pathChain.length}>
         {(i) => (
           <li key={i} className="breadcrumbs__item">
-            <Link to={i < pathChain.length - 1 ? pathChain[i].link : `#`} className="breadcrumbs__link">{pathChain[i].name}</Link>
+            {i === pathChain.length - 1 && (
+              <a className="breadcrumbs__link">{pathChain[i].name}</a>
+            )}
+            {i < pathChain.length - 1 && (
+              <Link to={pathChain[i].link} className="breadcrumbs__link">{pathChain[i].name}</Link>
+            )}
           </li>
         )}
       </Repeat>

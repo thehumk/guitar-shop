@@ -66,7 +66,7 @@ const Cart = ({cart, quantityGuitarsFromCart, removeFromCart, popupOpened, selec
           <h3 className="cart__discount-title">Промокод на скидку</h3>
           <p className="cart__discount-info">Введите свой промокод, если он у вас есть.</p>
           <div className="cart__discount-container">
-            <input type="text" className="cart__promocode" defaultValue="GITARAHIT"/>
+            <input type="text" className="cart__promocode" defaultValue=""/>
             <button className="cart__promocode-apply" onClick={(evt) => {
               onApplyPromocode(evt.target.previousElementSibling.value);
             }}>Применить купон</button>

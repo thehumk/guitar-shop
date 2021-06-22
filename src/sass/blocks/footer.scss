@@ -46,6 +46,7 @@
 .footer__social {
   grid-area: social;
   display: flex;
+  flex-wrap: wrap;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -53,6 +54,7 @@
 
 .footer__social-item {
   margin-right: 23px;
+  margin-bottom: 5px;
 
   &:last-child {
     margin-right: 0;
